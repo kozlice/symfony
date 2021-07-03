@@ -97,6 +97,7 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mercure\HubRegistry;
 use Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsTransportFactory;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
+use Symfony\Component\Messenger\Bridge\AmqpBunny\Transport\BunnyTransportFactory;
 use Symfony\Component\Messenger\Bridge\Beanstalkd\Transport\BeanstalkdTransportFactory;
 use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
@@ -379,6 +380,10 @@ class FrameworkExtension extends Extension
                 } else {
                     $container->removeDefinition('messenger.transport.amqp.factory');
                 }
+            }
+
+            if ($container->hasDefinition('messenger.transport.amqp_bunny.factory') && !class_exists(BunnyTransportFactory::class)) {
+                $container->removeDefinition('messenger.transport.amqp_bunny.factory');
             }
 
             if ($container->hasDefinition('messenger.transport.redis.factory') && !class_exists(RedisTransportFactory::class)) {

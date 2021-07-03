@@ -14,6 +14,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsTransportFactory;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory;
+use Symfony\Component\Messenger\Bridge\AmqpBunny\Transport\BunnyTransportFactory;
 use Symfony\Component\Messenger\Bridge\Beanstalkd\Transport\BeanstalkdTransportFactory;
 use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory;
 use Symfony\Component\Messenger\EventListener\AddErrorDetailsStampListener;
@@ -121,6 +122,8 @@ return static function (ContainerConfigurator $container) {
             ])
 
         ->set('messenger.transport.amqp.factory', AmqpTransportFactory::class)
+
+        ->set('messenger.transport.amqp_bunny.factory', BunnyTransportFactory::class)
 
         ->set('messenger.transport.redis.factory', RedisTransportFactory::class)
 
